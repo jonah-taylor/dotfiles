@@ -8,6 +8,7 @@
 
 # Font settings
 font-family = "JetBrainsMono Nerd Font"
+font-feature = -liga, -calt
 font-size = 14
 font-style = Regular
 font-style-bold = Bold
@@ -39,10 +40,10 @@ window-padding-balance = true
 window-padding-color = background
 
 # Scrollback
-scrollback-limit = 10000
+scrollback-limit = 10000000
 
 # Cursor
-cursor-style = bar
+cursor-style = block
 cursor-style-blink = true
 
 # Mouse scrolling
@@ -127,6 +128,9 @@ quit-after-last-window-closed = false
 # ----------------------------------------------------------------------------
 # KEYBINDINGS
 # ----------------------------------------------------------------------------
+
+keybind = alt+u=scroll_page_lines:-15
+keybind = alt+d=scroll_page_lines:15
 
 # Splits with Alt
 keybind = alt+'=new_split:right

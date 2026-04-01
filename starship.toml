@@ -1,11 +1,11 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-$username\
-$directory\
-$git_branch\
 $character"""
 
+#$username\
+#$directory\
+#$git_branch\
 #$git_status\
 
 [git_branch]
@@ -34,7 +34,7 @@ truncation_symbol = ""
 home_symbol = "~"
 format = "[$path]($style) "
 style = "bold cyan"
-
+#❯λ
 [character]
 success_symbol = "[❯](bold green)"
 error_symbol = "[❯](bold red)"
