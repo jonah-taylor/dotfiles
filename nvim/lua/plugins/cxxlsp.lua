@@ -3,22 +3,21 @@ return {
     "neovim/nvim-lspconfig",
     config = function()
       -- Configure LSP floating windows to wrap text
-      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-        vim.lsp.handlers.hover, {
-          border = "rounded",
-          max_width = 80,
-          max_height = 30,
-          wrap = true,
-          wrap_at = 80,
-        }
-      )
-      vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-        vim.lsp.handlers.signature_help, {
-          border = "rounded",
-          max_width = 80,
-          wrap = true,
-        }
-      )
+        vim.lsp.handlers["textDocument/hover"] = function(bufnr, result, ctx, config)
+            config = config or {}
+            config.border = "rounded"
+            config.max_width = 80
+            config.max_height = 30
+
+            return vim.lsp.handlers.hover(bufnr, result, ctx, config)
+        end
+
+        vim.lsp.handlers["textDocument/signatureHelp"] = function(bufnr, result, ctx, config)
+            config = config or {}
+            config.border = "rounded"
+            config.max_width = 80
+        return vim.lsp.handlers.signature_help(bufnr, result, ctx, config)
+        end
       
       -- Shared on_attach function for keymaps
       local on_attach = function(client, bufnr)
@@ -56,10 +55,36 @@ return {
           on_attach(client, bufnr)
         end
       })
-      
-      -- Enable clangd
-      vim.lsp.enable('clangd')
- 
+
+        vim.diagnostic.config({
+            virtual_text = { severity = { min = vim.diagnostic.severity.ERROR } },
+            signs = { severity = { min = vim.diagnostic.severity.ERROR } },
+            underline = { severity = { min = vim.diagnostic.severity.ERROR } },
+        })
+
+        -- Enable clangd
+        vim.lsp.enable('clangd')
+
+
+        vim.lsp.config('rust_analyzer', {
+            on_attach = on_attach,
+            settings = {
+                ["rust-analyzer"] = {
+                    checkOnSave = true,
+                    check = {
+                        command = "clippy",
+                        extraArgs = { "--", "-A", "warnings" },
+                    },
+                    diagnostics = {
+                        enable = true,
+                        disabled = { "unresolved-proc-macro" },
+                        warningsAsHint = {},
+                    },
+                },
+            },
+        })
+        vim.lsp.enable('rust_analyzer')
+
       -- Configure Python LSP (pyright) using vim.lsp.config
       vim.lsp.config('pyright', {
         on_attach = on_attach,

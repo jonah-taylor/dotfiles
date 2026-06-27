@@ -35,7 +35,7 @@ set $locker swaylock
 set $calc qalculate-gtk
 
 ### Output configuration ---------------------------------------
-output * bg ~/Pictures/bgs/black.jpg fill
+output * bg ~/media/imgs/bgs/black.jpg fill
 output * resolution 2560x1600@90Hz scale 1
 output * scale 1
 
@@ -50,6 +50,7 @@ exec swayidle -w \
 exec_always --no-startup-id autotiling
 # Information Bar
 exec waybar
+exec_always pkill -x udiskie; exec udiskie
 
 # Window styling ---------------------------------------
 
@@ -138,11 +139,23 @@ seat * hide_cursor 1000
     # Open file manager
     bindsym $mod+t exec $fman
 
+    # Toggle title bar
+    bindsym $mod+b border toggle
+
     # Open calculator
     bindsym XF86Calculator exec $calc
 
     # Special key to take a screenshot with grim
-    bindsym Print exec grim -g "$(slurp)" - | swappy -f - -o ~/Pictures/screenshots/ss-$(date +%s).png
+    bindsym Print exec grim -g "$(slurp)" - | wl-copy
+
+    # Save a screenshot
+    # bindsym shift+print exec bash -c 'grim -g "$(slurp)" "$(zenity --file-selection --save --filename=$HOME/media/imgs/screenshots/ss-$(date +%s).png)"'
+    # bindsym shift+print exec grim -g "$(slurp)" - | swappy -f - -o ~/media/imgs/screenshots/ss-$(date +%s).png
+    bindsym shift+print exec bash -c '\
+    TMPFILE=$(mktemp /tmp/ss-XXXXXX.png) && \
+    grim -g "$(slurp)" "$TMPFILE" && \
+    DEST=$(zenity --file-selection --save --filename=$HOME/media/imgs/screenshots/ss-$(date +%s).png) && \
+    mv "$TMPFILE" "$DEST"'
 
     # Drag floating windows by holding down $mod and left mouse button
     floating_modifier $mod normal
@@ -249,7 +262,6 @@ bindsym $mod+r mode "resize"
     # Special keys to adjust brightness via brightnessctl
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
-
 
 
 

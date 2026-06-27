@@ -1,5 +1,5 @@
 
-vim.cmd([[colorscheme gruvbox]])
+-- vim.cmd([[colorscheme gruvbox]])
 
 vim.opt.clipboard = "unnamed,unnamedplus"
 
@@ -32,7 +32,7 @@ vim.opt.list = true
 vim.opt.listchars = {
   tab = '→ ', -- requires 2 chars
   space = '·',
-  eol = '↴',
+  -- eol = ' ', -- once ↴
   trail = '~',
   extends = '»',
   precedes = '«',

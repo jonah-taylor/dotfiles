@@ -9,7 +9,7 @@
 # Font settings
 font-family = "JetBrainsMono Nerd Font"
 font-feature = -liga, -calt
-font-size = 14
+font-size = 20
 font-style = Regular
 font-style-bold = Bold
 font-style-italic = Italic
@@ -29,7 +29,7 @@ window-titlebar-background = #000000
 window-titlebar-foreground = #000000
 
 # Transparency and blur
-background-opacity = 0.95
+background-opacity = 0.85
 unfocused-split-opacity = 0.90
 background-blur-radius = 0
 
@@ -115,11 +115,11 @@ clipboard-paste-bracketed-safe = true
 mouse-hide-while-typing = true
 
 # Links
-link-url = true
+link-url = false
 
 # Shell integration
 shell-integration = detect
-shell-integration-features = cursor,sudo,title
+shell-integration-features = cursor,title
 
 # Confirm before closing
 confirm-close-surface = false

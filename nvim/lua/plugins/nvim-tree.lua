@@ -61,31 +61,76 @@ return {
       on_attach = function(bufnr)
         local api = require("nvim-tree.api")
         
-        -- Load default mappings
         api.config.mappings.default_on_attach(bufnr)
         
-        -- Simple function to open file and stay in tree
         local function open_stay_in_tree()
           local node = api.tree.get_node_under_cursor()
           if node and node.type == "file" then
             api.node.open.edit()
-            -- Return to nvim-tree window using the API
             api.tree.focus()
           elseif node and node.type == "directory" then
             api.node.open.edit()
           end
         end
         
-        -- Override Enter key
         vim.keymap.set('n', '<CR>', open_stay_in_tree, { buffer = bufnr, desc = "Open and stay in tree" })
         vim.keymap.set('n', '<2-LeftMouse>', open_stay_in_tree, { buffer = bufnr, desc = "Open and stay in tree" })
       end,
     })
-    
-    -- Hide the separator
-    vim.api.nvim_set_hl(0, "NvimTreeWinSeparator", { fg = "NONE", bg = "NONE" })
-    
-    -- Auto-close when last window
+
+    local function set_highlights()
+    vim.api.nvim_set_hl(0, "NvimTreeWinSeparator", {})
+    local white = { fg = "#FFFFFF" }
+
+    -- Icons
+    vim.api.nvim_set_hl(0, "NvimTreeGitIcon", white)
+    vim.api.nvim_set_hl(0, "NvimTreeFolderIcon", white)
+    vim.api.nvim_set_hl(0, "NvimTreeFileIcon", white)
+    vim.api.nvim_set_hl(0, "NvimTreeOpenedFolderIcon", white)
+    vim.api.nvim_set_hl(0, "NvimTreeModifiedIcon", white)
+    vim.api.nvim_set_hl(0, "NvimTreeExecFile", white)
+    vim.api.nvim_set_hl(0, "NvimTreeSymlink", white)
+    vim.api.nvim_set_hl(0, "NvimTreeIndentMarker", white)
+
+    -- Text
+    vim.api.nvim_set_hl(0, "NvimTreeNormal", white)
+    vim.api.nvim_set_hl(0, "NvimTreeNormalNC", white)
+    vim.api.nvim_set_hl(0, "NvimTreeFileName", white)
+    vim.api.nvim_set_hl(0, "NvimTreeFolderName", white)
+    vim.api.nvim_set_hl(0, "NvimTreeOpenedFolderName", white)
+    vim.api.nvim_set_hl(0, "NvimTreeEmptyFolderName", white)
+    vim.api.nvim_set_hl(0, "NvimTreeSymlinkFolderName", white)
+    vim.api.nvim_set_hl(0, "NvimTreeRootFolder", white)
+    vim.api.nvim_set_hl(0, "NvimTreeSpecialFile", white)
+
+    -- Git status text
+    vim.api.nvim_set_hl(0, "NvimTreeGitDirty", white)
+    vim.api.nvim_set_hl(0, "NvimTreeGitStaged", white)
+    vim.api.nvim_set_hl(0, "NvimTreeGitMerge", white)
+    vim.api.nvim_set_hl(0, "NvimTreeGitRenamed", white)
+    vim.api.nvim_set_hl(0, "NvimTreeGitNew", white)
+    vim.api.nvim_set_hl(0, "NvimTreeGitDeleted", white)
+    vim.api.nvim_set_hl(0, "NvimTreeGitIgnored", white)
+
+    -- Devicons
+    local ok, devicons = pcall(require, "nvim-web-devicons")
+    if ok then
+        local icons = devicons.get_icons()
+        for _, icon in pairs(icons) do
+        if icon.name then
+            vim.api.nvim_set_hl(0, "DevIcon" .. icon.name, white)
+        end
+        end
+    end
+    end
+
+    vim.api.nvim_create_autocmd("ColorScheme", {
+      pattern = "*",
+      callback = set_highlights,
+    })
+
+    vim.schedule(set_highlights)
+
     vim.api.nvim_create_autocmd("QuitPre", {
       callback = function()
         local tree_wins = {}
@@ -101,7 +146,7 @@ return {
             vim.api.nvim_win_close(w, true)
           end
         end
-      end
+      end,
     })
   end,
   keys = {
