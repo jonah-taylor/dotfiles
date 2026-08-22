@@ -58,7 +58,7 @@ return {
   keys = {
     { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
     { "<leader>g", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
-    { "<leader>b", "<cmd>Telescope buffers<cr>", desc = "Find Buffers" },
+    -- { "<leader>b", "<cmd>Telescope buffers<cr>", desc = "Find Buffers" },
     -- { "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Help Tags" },
     -- { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files" },
     -- { "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Git Commits" },

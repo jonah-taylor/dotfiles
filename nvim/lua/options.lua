@@ -10,6 +10,9 @@ vim.opt.swapfile = false
 vim.opt.number = true
 vim.opt.relativenumber=true
 
+-- Remove status line
+vim.o.laststatus = 0
+
 -- Timeout
 vim.opt.timeoutlen = 1000
 vim.opt.ttimeoutlen = 500

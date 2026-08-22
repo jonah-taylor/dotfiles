@@ -7,30 +7,34 @@
 # ----------------------------------------------------------------------------
 
 # Font settings
-font-family = "JetBrainsMono Nerd Font"
+# font-family = "JetBrainsMono Nerd Font"
+font-family = "Go Mono"
 font-feature = -liga, -calt
 font-size = 20
-font-style = Regular
+font-style = bold
 font-style-bold = Bold
 font-style-italic = Italic
 
 # Anti-aliasing
-font-thicken = true
+# font-thicken = true
 
 # Colors - Gruvbox Dark Theme
-background = #000000
-foreground = #ffffff
-cursor-color = #ffffff
-cursor-text = #282828
-selection-background = #665c54
-selection-foreground = #ebdbb2
+# background = #000000
+background = #ffffea
+# foreground = #ffffff
+foreground = #000000
+# cursor-color = #ffffff
+cursor-color = #000000
+# cursor-text = #282828
+# selection-background = #665c54
+# selection-foreground = #ebdbb2
 
-window-titlebar-background = #000000
-window-titlebar-foreground = #000000
+# window-titlebar-background = #000000
+# window-titlebar-foreground = #000000
 
 # Transparency and blur
-background-opacity = 0.85
-unfocused-split-opacity = 0.90
+# background-opacity = 0.85
+unfocused-split-opacity = 0
 background-blur-radius = 0
 
 # Window padding
@@ -70,16 +74,16 @@ palette = 3=#d79921
 palette = 11=#fabd2f
 
 # Blue
-palette = 4=#458588
-palette = 12=#83a598
+palette = 4=#2545bc
+palette = 12=#6385f8
 
 # Magenta
 palette = 5=#b16286
 palette = 13=#d3869b
 
 # Cyan
-palette = 6=#689d6a
-palette = 14=#8ec07c
+palette = 6=#487d4a
+palette = 14=#6ea05c
 
 # White
 palette = 7=#ffffff
@@ -239,7 +243,7 @@ gtk-custom-css = ~/.config/ghostty/custom.css
 bold-is-bright = false
 
 # Minimum contrast ratio
-minimum-contrast = 1.0
+# minimum-contrast = 1.0
 
 # ----------------------------------------------------------------------------
 # MACOS SPECIFIC (still work on Linux for Alt key handling)

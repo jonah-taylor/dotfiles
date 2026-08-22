@@ -1,7 +1,12 @@
-tabbar {
-    background-color: black;
-    font-size: 24px;
-}
-
-tabbar > tab {
+headerbar, headerbar:backdrop,
+tabbar, tabbar:backdrop,
+window.background headerbar,
+window.background:backdrop headerbar {
+  background-color: #ffffea;
+  background-image: none;
+  box-shadow: none;
+  opacity: 1;
+  color: #000000;
+  font-size: 24px;
+  font-weight: bold;
 }

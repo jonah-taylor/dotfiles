@@ -35,7 +35,8 @@ set $locker swaylock
 set $calc qalculate-gtk
 
 ### Output configuration ---------------------------------------
-output * bg ~/media/imgs/bgs/black.jpg fill
+# output * bg ~/media/imgs/bgs/black.jpg fill
+output * bg #222222 solid_color
 output * resolution 2560x1600@90Hz scale 1
 output * scale 1
 
@@ -47,20 +48,21 @@ exec swayidle -w \
          resume 'swaymsg "output * power on"' \
          before-sleep 'sleep 2 && $locker'
 # Window title formatting
+
 exec_always --no-startup-id autotiling
+
 # Information Bar
 exec waybar
 exec_always pkill -x udiskie; exec udiskie
 
 # Window styling ---------------------------------------
 
-# Default border styles
-default_border pixel 8
-default_floating_border normal 8
+default_border pixel
+# default_floating_border normal 8
 
 # Force specific border styles for all new windows based on their state
 for_window [tiling] border pixel 8
-for_window [floating] border normal 8
+for_window [floating] border pixel 8
 
 # Center all floating windows by default
 for_window [floating] move position center
@@ -78,7 +80,7 @@ client.background       #ffffff
 title_align center
 
 # Apply the correct border style on startup/reload
-exec_always --no-startup-id "swaymsg '[tiling] border pixel 8; [floating] border normal 5'"
+exec_always --no-startup-id "swaymsg '[tiling] border pixel 8; [floating] border pixel 5'"
 
 # Window gaps
 gaps inner 18
@@ -150,12 +152,12 @@ seat * hide_cursor 1000
 
     # Save a screenshot
     # bindsym shift+print exec bash -c 'grim -g "$(slurp)" "$(zenity --file-selection --save --filename=$HOME/media/imgs/screenshots/ss-$(date +%s).png)"'
-    # bindsym shift+print exec grim -g "$(slurp)" - | swappy -f - -o ~/media/imgs/screenshots/ss-$(date +%s).png
-    bindsym shift+print exec bash -c '\
-    TMPFILE=$(mktemp /tmp/ss-XXXXXX.png) && \
-    grim -g "$(slurp)" "$TMPFILE" && \
-    DEST=$(zenity --file-selection --save --filename=$HOME/media/imgs/screenshots/ss-$(date +%s).png) && \
-    mv "$TMPFILE" "$DEST"'
+    bindsym shift+print exec grim -g "$(slurp)" - | swappy -f - -o ~/media/imgs/screenshots/ss-$(date +%s).png
+    # bindsym shift+print exec bash -c '\
+    # TMPFILE=$(mktemp /tmp/ss-XXXXXX.png) && \
+    # grim -g "$(slurp)" "$TMPFILE" && \
+    # DEST=$(zenity --file-selection --save --filename=$HOME/media/imgs/screenshots/ss-$(date +%s).png) && \
+    # mv "$TMPFILE" "$DEST"'
 
     # Drag floating windows by holding down $mod and left mouse button
     floating_modifier $mod normal

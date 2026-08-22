@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -36,7 +37,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
     vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
   end,
 })
 
@@ -48,22 +48,26 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.cmd("syntax off")
-vim.cmd.colorscheme("monochrome")
-vim.api.nvim_set_hl(0, "Normal", { fg = "#FFFFFF" })
-vim.api.nvim_set_hl(0, "NormalNC", { fg = "#FFFFFF" })
+vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
+  pattern = "*",
+  callback = function()
+    vim.treesitter.stop()
+  end,
 
-local syntax_groups = {
-  "Comment", "Constant", "String", "Character", "Number",
-  "Boolean", "Float", "Identifier", "Function", "Statement",
-  "Conditional", "Repeat", "Label", "Operator", "Keyword",
-  "Exception", "PreProc", "Include", "Define", "Macro",
-  "PreCondit", "Type", "StorageClass", "Structure", "Typedef",
-  "Special", "SpecialChar", "Tag", "Delimiter", "SpecialComment",
-  "Debug", "Underlined", "Error", "Todo",
-}
-for _, group in ipairs(syntax_groups) do
-  vim.api.nvim_set_hl(0, group, { fg = "#FFFFFF" })
-end
+})
+
+color = "#000000"
+
+vim.api.nvim_set_hl(0, "Normal", { fg = color, bg = "#ffffea" })
+vim.api.nvim_set_hl(0, "NormalNC", { fg = color, bg = "#ffffea" })
+vim.api.nvim_set_hl(0, "CursorLine", { bg = "#e0e0e0" })
+vim.api.nvim_set_hl(0, "LineNr", { fg = color })
+vim.api.nvim_set_hl(0, "CursorLineNr", { fg = color, bold = true })
+vim.api.nvim_set_hl(0, "Visual", { bg = "#cccccc"})
+
+vim.api.nvim_set_hl(0, "Search", { bg = "#f1f1f1", fg = color })
+vim.api.nvim_set_hl(0, "IncSearch", { bg = "#cccccc", fg = color })
+vim.api.nvim_set_hl(0, "CurSearch", { bg = "#888888", fg = "#ffffff" })
 
 require("options")
 require("mappings")

@@ -21,7 +21,7 @@ return {
             scrollable = false,  -- Disable scrolling to force fitting
             auto_toggle_bufferline = false,
         },
-        
+
         -- Appearance
         indicator = {
           icon = '▎',
@@ -32,7 +32,7 @@ return {
         close_icon = '',
         left_trunc_marker = '',
         right_trunc_marker = '',
-        
+
         -- Layout - Force tabs to shrink dynamically
         max_name_length = 20,
         max_prefix_length = 15,
@@ -49,26 +49,25 @@ return {
         show_duplicate_prefix = true,  -- Help distinguish similar names
         persist_buffer_sort = true,
         always_show_bufferline = true,
-        
-        -- Sidebar integration
-        offsets = {
-          {
-            filetype = "NvimTree",
-            text = "File Explorer",
-            highlight = "Directory",
-            text_align = "left"
-          },
-          {
-            filetype = "neo-tree",
-            text = "File Explorer", 
-            highlight = "Directory",
-            text_align = "left"
-          }
-        },
-        
+
+        -- -- Sidebar integration
+        -- offsets = {
+        --     {
+        --     filetype = "NvimTree",
+        --     text = "",
+        --     text_align = "left"
+        --     },
+        --     {
+        --         filetype = "neo-tree",
+        --         text = "File Explorer", 
+        --         highlight = "Directory",
+        --         text_align = "left"
+        --     }
+        -- },
+
         -- Sorting
         sort_by = 'id',
-        
+
         -- Custom filter
         custom_filter = function(buf_number, buf_numbers)
           -- Filter out filetypes you don't want to see
@@ -79,136 +78,32 @@ return {
           return true
         end,
       },
-      
-      -- Fixed highlights section with proper transparency
-      highlights = {
-        background = {
-          bg = '#000000',
-          fg = '#888888',  -- Keep text visible, not #000000
+        highlights = {
+        -- fill = { bg = '#f1f1f1' },
+        -- background = { bg = 'NONE', fg = 'NONE' },
+        -- buffer_selected = { bg = 'NONE', fg = '#000000', bold = true },
+        -- buffer_visible = { bg = 'NONE', fg = 'NONE', bold = false },
+        -- separator = { bg = 'NONE', fg = 'NONE' },
+        -- separator_selected = { bg = 'NONE', fg = 'NONE', bold = true },
+        -- separator_visible = { bg = 'NONE', fg = 'NONE' },
         },
-        buffer_selected = {
-          bg = '#000000',  -- Black background for selected tab
-          fg = '#ffffff',  -- White text for selected tab
-          bold = true,
-        },
-        buffer_visible = {
-          bg = '#000000',
-          fg = '#cccccc',
-        },
-        close_button = {
-          bg = 'NONE',
-          fg = '#888888',
-        },
-        close_button_selected = {
-          bg = 'NONE',
-          fg = '#ffffff',
-        },
-        close_button_visible = {
-          bg = '#000000',
-          fg = '#cccccc',
-        },
-        fill = {
-          bg = '#000000',  -- This is crucial for transparency
-        },
-        indicator_selected = {
-          bg = '#000000',
-          fg = '#ffffff',
-        },
-        modified = {
-          bg = 'NONE',
-          fg = '#ffffff',
-        },
-        modified_selected = {
-          bg = '#000000',
-          fg = '#ffffff',
-        },
-        modified_visible = {
-          bg = 'NONE',
-          fg = '#999900',
-        },
-        numbers = {
-          bg = 'NONE',
-          fg = '#888888',
-        },
-        numbers_selected = {
-          bg = '#000000',
-          fg = '#ffffff',
-          bold = true,
-        },
-        numbers_visible = {
-          bg = 'NONE',
-          fg = '#cccccc',
-        },
-        separator = {
-          bg = 'NONE',
-          fg = '#000000',
-        },
-        separator_selected = {
-          bg = 'NONE',
-          fg = '#000000',
-        },
-        separator_visible = {
-          bg = 'NONE',
-          fg = '#000000',
-        },
-        tab = {
-          bg = '#222222',
-          fg = '#888888',
-        },
-        tab_selected = {
-          bg = 'NONE',
-          fg = '#ffffff',
-          bold = true,
-        },
-        tab_close = {
-          bg = 'NONE',
-          fg = '#888888',
-        },
-        -- Additional highlight groups that might interfere
-        duplicate_selected = {
-          bg = 'NONE',
-          fg = '#ffffff',
-          bold = true,
-        },
-        duplicate_visible = {
-          bg = 'NONE',
-          fg = '#cccccc',
-        },
-        duplicate = {
-          bg = 'NONE',
-          fg = '#888888',
-        },
-        pick_selected = {
-          bg = 'NONE',
-          fg = '#ffffff',
-          bold = true,
-        },
-        pick_visible = {
-          bg = 'NONE',
-          fg = '#cccccc',
-        },
-        pick = {
-          bg = 'NONE',
-          fg = '#888888',
-        },
-      },
     })
 
-        -- Force filler line transparency even after colorscheme reload
-    vim.api.nvim_create_autocmd("ColorScheme", {
-    pattern = "*",
-    callback = function()
-        vim.cmd("highlight BufferLineFill guibg=#000000")
-        vim.cmd("highlight BufferLineBackground guibg=#000000")
-    end,
-    })
+    -- -- Force filler line transparency even after colorscheme reload
+    -- vim.api.nvim_create_autocmd("ColorScheme", {
+    -- pattern = "*",
+    -- callback = function()
+    --     vim.cmd("highlight BufferLineFill guibg=#000000")
+    --     vim.cmd("highlight BufferLineBackground guibg=#000000")
+    -- end,
+    -- })
 
 
     -- Custom function to go to buffer by visual position
     local function go_to_buffer_by_position(pos)
       local bufferline = require('bufferline')
       local state = require('bufferline.state')
-      
+
       -- Get the visible components
       if state.components and state.components[pos] then
         vim.cmd('buffer ' .. state.components[pos].id)
@@ -223,7 +118,7 @@ return {
     end
     end
 
-    -- Set up keybindings for buffer positions 1-9
+    -- Set up keybindings for all buffer positions
     for i = 1, 99 do
         vim.keymap.set('n', i .. '<CR>', function() go_to_buffer_by_position(i) end, 
             { desc = 'Go to buffer ' .. i, silent = true })

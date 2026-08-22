@@ -1,6 +1,10 @@
 -- Space only acts as leader
 vim.keymap.set('n', '<space>', '<nop>', { noremap = true })
 
+-- Consistent jumping
+vim.keymap.set("n", "<C-u>", "16k")
+vim.keymap.set("n", "<C-d>", "16j")
+
 -- Quit
 vim.cmd('cnoreabbrev wq wqa')
 vim.cmd('cnoreabbrev q qa')
