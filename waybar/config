@@ -12,10 +12,10 @@
         "format": "<span style=\"italic\">{}</span>",
         "tooltip": false
     },
-    
+
     "sway/workspaces": {
         "disable-scroll": true,
-        "all-outputs": true,
+        "all-outputs": false,
         "format": "{name}",
         "sort-by-number": true,
         "persistent_workspaces": {
@@ -33,7 +33,7 @@
 	"swap-icon-label": true
 
     },
-    
+
     "sway/window": {
         "format": "{title}",
         "max-length": 60,
@@ -41,7 +41,7 @@
 	"swap-icon-label": true
 
     },
-    
+
     "pulseaudio#microphone": {
         "format": "{format_source}",
         "format-source": " On",
@@ -51,9 +51,10 @@
 	"swap-icon-label": true
 
     },
-    
+
     "pulseaudio": {
-        "format": "{icon} {volume}%",
+        "format": "{icon}{volume}%",
+        "format-bluetooth": " {volume}%",
         "format-muted": "",
         "format-icons": {
             "headphone": "🎧",
@@ -68,7 +69,7 @@
 	"swap-icon-label": true
 
     },
-    
+
     "backlight": {
         "device": "intel_backlight",
         "format": "☀️ {percent}%",
@@ -92,9 +93,9 @@
 	"swap-icon-label": true
 
     },
-    
+
     "network": {
-        "format-wifi": "  {signalStrength}%",
+        "format-wifi": " {signalStrength}%",
         "format-ethernet": "🌐 Connected",
         "format-disconnected": "",
         "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
@@ -102,7 +103,7 @@
         "on-click": "nm-connection-editor",
 	"swap-icon-label": true
     },
-    
+
     "clock": {
         "format": "{:%d - %I:%M}",
         "format-alt": "📅 {:%Y-%m-%d %H:%M}",
